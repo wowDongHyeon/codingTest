@@ -32,7 +32,7 @@ class Solution {
 				result.put(clothes[i][1], result.get(clothes[i][1])+1);
 			}else {
 				result.put(clothes[i][1],1);
-			}
+			} 
 		}
 		return result;
 	}
