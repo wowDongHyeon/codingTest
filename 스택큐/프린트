@@ -1,0 +1,83 @@
+import java.util.*;
+
+public class MainTest {
+
+	public static void main(String[] args) {
+//		int[] priorities= {2, 1, 3, 2};
+		int[] priorities= {1, 1, 9, 1, 1, 1};
+		int location=0;
+		System.out.println(Solution.solution(priorities, location)); 
+	}
+}
+class Solution {
+    public static int solution(int[] priorities, int location) {
+        int answer = 0;
+        ArrayList<Paper> finishPrint=new ArrayList<Paper>();
+        ArrayList<Paper> printing=getArrayListFromArray(priorities);
+        while(printing.size()!=0) {
+        	if(isFirstImportant(printing)) {
+        		finishPrint.add(printing.get(0));
+        		printing.remove(0);
+        	}else {
+        		printing.add(printing.get(0));
+        		printing.remove(0);
+        	}
+        }
+        answer=findLocation(finishPrint,location);
+        return answer;
+    }
+
+
+
+
+	private static ArrayList<Paper> getArrayListFromArray(int[] priorities) {
+		ArrayList<Paper> result=new ArrayList<Paper>();
+		for(int i=0; i<priorities.length; i++) {
+			Paper obj=new Paper();
+			obj.setName(i+"번");
+			obj.setImportance(priorities[i]);
+			result.add(obj);
+		}
+		return result;
+	}
+	private static boolean isFirstImportant(ArrayList<Paper> printing) {
+		int first=printing.get(0).getImportance();
+		for(int i=1; i<printing.size();i++) {
+			if(first<printing.get(i).getImportance()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	private static int findLocation(ArrayList<Paper> finishPrint,int location) {
+		for(int i=0; i<finishPrint.size(); i++) {
+			if(finishPrint.get(i).getName().equals(location+"번")) {
+				return i+1;
+			}
+		}
+		return -1;
+	}
+	
+}
+class Paper{
+	
+	private String name;
+	private int importance;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getImportance() {
+		return importance;
+	}
+	public void setImportance(int importance) {
+		this.importance = importance;
+	}
+	@Override
+	public String toString() {
+		return "Paper [name=" + name + ", importance=" + importance + "]";
+	}
+}
