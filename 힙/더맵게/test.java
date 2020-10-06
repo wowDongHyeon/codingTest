@@ -33,7 +33,7 @@ class Solution {
 		for(int i: scoville) {
 			result.add(i);
 		}
-		return result;
+		return result; 
 	}
     private static boolean checkOverK(ArrayList<Integer> scovilleList, int K) {
 		for(int i : scovilleList) {
